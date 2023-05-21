@@ -10,12 +10,12 @@ const Form =({id,setId})=>{
     const classes = useStyles();
     const dispatch = useDispatch();
     const [postData,setPostData] = useState({
-        Creator:'',
         title:'',
         tags:'',
         message:'',
         selectedFile:'',
     });
+    const user  = JSON.parse(localStorage.getItem('profile'));
     const post  = useSelector((state)=> id?state.posts.find((post)=> post._id===id):null);
     useEffect(()=>{
         if(post){
@@ -27,13 +27,13 @@ const Form =({id,setId})=>{
             if(id==null){
                 console.log('id is zero');
                 console.log(id);
-                dispatch(createPost(postData));
+                dispatch(createPost({...postData,name:user?.result?.name}));
                 
             }
             else{
                 console.log('update procedure start');
                 console.log(id);
-                dispatch(updatePost(id,postData));
+                dispatch(updatePost(id,{...postData,name:user?.result?.name}));
                 setId(null);
             }
         console.log({e});
@@ -43,7 +43,6 @@ const Form =({id,setId})=>{
     const clearPost= ()=>{
         setPostData(
             {
-                Creator:'',
                 title:'',
                 tags:'',
                 message:'',
@@ -55,7 +54,6 @@ const Form =({id,setId})=>{
       <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form} `} onSubmit={handleSubmit}>
                 <Typography variant='h6'>{id?"Updating" : "Creating"} Post</Typography>
-                <TextField className={classes.textInput} name='creator' variant='outlined' label='Creator' fullWidth value={postData.Creator} onChange={(e)=> setPostData({...postData, Creator: e.target.value})}/>
                 <TextField className={classes.textInput} name='title' variant='outlined' label='Title' fullWidth value={postData.title} onChange={(e)=> setPostData({...postData, title: e.target.value})}/>
                 <TextField className={classes.textInput} name='Tags' variant='outlined' label='Tags' fullWidth value={postData.tags} onChange={(e)=> setPostData({...postData, tags: e.target.value})}/>
                 <TextField className={classes.textInput} name='message' multiline minRows={3} variant='outlined' label='Message' fullWidth value={postData.message} onChange={(e)=> setPostData({...postData, message: e.target.value})}/>

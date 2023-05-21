@@ -4,6 +4,7 @@ import useStyles from './styles.js';
 import {Link, useHistory, useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import decode from 'jwt-decode'
 // TODO ADD IMAGE IN LINE NO. 14 
 const Navbar = ()=>{
     const classes  = useStyles();
@@ -20,6 +21,12 @@ const Navbar = ()=>{
     }
     useEffect(()=>{
       const token = user?.token;
+      if(token){
+        const decodedToken = decode(token);
+        if(decodedToken.exp*1000 < new Date().getTime()){
+            logout();
+        }
+      }
       setUser(JSON.parse(localStorage.getItem('profile')))   ;
     },[location])
     return(
