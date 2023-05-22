@@ -7,7 +7,9 @@ export default (posts=[],action)=>{
         case 'FETCH_ALL':
             console.log('this works also...');
             return action.payload ;
-    
+        
+        case 'FETCH_BY_SEARCH':
+            return action.payload;
         case 'CREATE':
             return [...posts, action.payload];
 
