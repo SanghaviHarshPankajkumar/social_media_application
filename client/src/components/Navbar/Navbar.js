@@ -5,6 +5,7 @@ import {Link, useHistory, useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import decode from 'jwt-decode'
+import image from '../../image/saved_image.png'
 // TODO ADD IMAGE IN LINE NO. 14 
 const Navbar = ()=>{
     const classes  = useStyles();
@@ -16,7 +17,7 @@ const Navbar = ()=>{
     const logout = ()=>{
         setUser(null);
         dispatch({type:'LOGOUT'});
-        history.push('/')
+        history.push('/Login');
         
     }
     useEffect(()=>{
@@ -32,7 +33,7 @@ const Navbar = ()=>{
     return(
         <AppBar className={classes.appBar} position="static" color='inherit'>
        <Link to="/" style={{font:'none', textDecoration:'none'}}> <Typography className={classes.heading} variant="h2" align="center"> Social App</Typography></Link>
-        <img className={classes.image} src={'img'} alt='app' height='60'/>
+        <img className={classes.image} src={image} alt='main' height='60'/>
 
         <Toolbar className={classes.toolbar}>
          {

@@ -5,7 +5,7 @@ export  const getPosts= async (req,res)=>{
     try {
         // res.send('This Works');
         const postMessages  = await PostMessage.find({})
-        console.log(postMessages);
+        // console.log(postMessages);
         res.status(200).json(postMessages);
     } catch (error) {
         res.status(404).json({message:error.message})
@@ -15,11 +15,13 @@ export  const getPosts= async (req,res)=>{
 
 export const createPost = async(req,res)=>{
     const post = req.body;
-    const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
+    
+    const newPost = new PostMessage({ ...post, Creator: req.userId, createdAt: new Date().toISOString() })
     try {
         await newPost.save();
         res.status(201).json(newPost);
     } catch (error) {
+        console.log(error);
         res.send(409).json({message:error.message})
     }
 }

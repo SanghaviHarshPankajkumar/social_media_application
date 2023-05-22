@@ -13,7 +13,7 @@ export const signIN = async(req,res)=>{
         if(!samepassward) {
          return res.status(404).json({message:'Password not match...'});
         }
-        const token = jwt.sign({email:existingUser.email, id:existingUser._id},'test',{expiresIn:"1hr"});
+        const token = jwt.sign({email:existingUser.email, id:existingUser._id},'keySecreate',{expiresIn:"1hr"});
         return res.status(200).json({token, result:existingUser});
         
     } catch (error) {
@@ -37,7 +37,7 @@ export const signUP = async (req,res)=>{
         const pwd = await bcrypt.hash(password,13);
         const result = await Users.create({email:email, name: `${firstName} ${lastName}`, password:pwd});
         console.log(result);
-        const token = jwt.sign({email:result.email, id:result._id},'test',{expiresIn:"1hr"});
+        const token = jwt.sign({email:result.email, id:result._id},'keySecreate',{expiresIn:"1hr"});
         return res.status(200).json({token, result:result});
     } catch (error) {
         console.log(error);

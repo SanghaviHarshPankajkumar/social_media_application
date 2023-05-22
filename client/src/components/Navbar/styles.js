@@ -16,7 +16,7 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
   },
   image: {
-    marginLeft: '15px',
+    marginLeft: '-305px',
   },
   toolbar: {
     display: 'flex',
@@ -31,6 +31,7 @@ export default makeStyles((theme) => ({
   userName: {
     display: 'flex',
     alignItems: 'center',
+    marginLeft:'-20px'
   },
   brandContainer: {
     display: 'flex',
@@ -39,5 +40,7 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    marginLeft:'120px',
   },
+
 }));

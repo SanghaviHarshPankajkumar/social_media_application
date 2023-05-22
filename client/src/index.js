@@ -5,7 +5,7 @@ import reducers from './reducers/index.js'
 import thunk from 'redux-thunk'
 import {legacy_createStore as createStore, applyMiddleware,compose} from 'redux';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import './index.css';
 import App from './App';
 
 const store = createStore(reducers,compose(applyMiddleware(thunk)));

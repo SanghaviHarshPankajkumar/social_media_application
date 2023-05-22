@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux"
 import { createPost } from "../../actions/posts";
 import { updatePost } from "../../actions/posts";
+
 const Form =({id,setId})=>{
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -14,9 +15,11 @@ const Form =({id,setId})=>{
         tags:'',
         message:'',
         selectedFile:'',
+        
     });
     const user  = JSON.parse(localStorage.getItem('profile'));
     const post  = useSelector((state)=> id?state.posts.find((post)=> post._id===id):null);
+  
     useEffect(()=>{
         if(post){
             setPostData(post)
@@ -51,8 +54,11 @@ const Form =({id,setId})=>{
         )
     }
     return (
+        
       <Paper className={classes.paper}>
-            <form autoComplete="off" noValidate className={`${classes.root} ${classes.form} `} onSubmit={handleSubmit}>
+        {
+            (user?.result ) ? (
+                <form autoComplete="off" noValidate className={`${classes.root} ${classes.form} `} onSubmit={handleSubmit}>
                 <Typography variant='h6'>{id?"Updating" : "Creating"} Post</Typography>
                 <TextField className={classes.textInput} name='title' variant='outlined' label='Title' fullWidth value={postData.title} onChange={(e)=> setPostData({...postData, title: e.target.value})}/>
                 <TextField className={classes.textInput} name='Tags' variant='outlined' label='Tags' fullWidth value={postData.tags} onChange={(e)=> setPostData({...postData, tags: e.target.value})}/>
@@ -63,6 +69,12 @@ const Form =({id,setId})=>{
                 <Button className={classes.buttonSubmit} variant="contained" color="primary" type="submit" fullWidth size="large"> Submit </Button>
                 <Button  variant="contained" color="secondary" fullWidth size="small" onClick={clearPost}> Cancel </Button>
             </form>
+            ):
+           (
+            <Typography variant="h3"> </Typography>
+           )
+        }
+           
       </Paper>
     )
 }

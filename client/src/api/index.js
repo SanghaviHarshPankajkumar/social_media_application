@@ -2,17 +2,20 @@ import axios from 'axios';
 
 const API1 = axios.create({baseURL:'http://localhost:5000/'});
 
-axios.interceptors.request.use((req)=>{
+API1.interceptors.request.use((req)=>{
     if(localStorage.getItem('profile')){
-        req.headers.Authorization  = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
+        req.headers.Authorization  = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
     }
+    // console.log('inside the api');
+    // console.log(req.headers);
+    return req;
 });
 
 export const fetchPosts = ()=> API1.get('posts');
 export const createPost = (newPost)=> API1.post('posts',newPost);
 export const updatePost = (id,updatedPost)=> API1.patch(`posts/${id}`,updatedPost);
 export const deletePost = (id)=> API1.delete(`posts/${id}`);
-export const updateLikePost = (id)=> API1.patch(`posts/${id}//likePost`);
+export const updateLikePost = (id)=> API1.patch(`posts/${id}/likePost`);
 
 export const signIN = (formData)=> API1.post('user/signin',formData);
 export const signUP = (formData)=> API1.post('user/signup',formData);
