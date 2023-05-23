@@ -1,12 +1,30 @@
 import * as api from '../api';
 
-export const getPosts=()=> async(dispatch)=>{
+export const getPosts=(page)=> async(dispatch)=>{
     try {
+        dispatch({type: 'START_LOADING'});
         console.log('this also works...');
-         const {data}=  await api.fetchPosts();
+         const {data}=  await api.fetchPosts(page);
          console.log(data);
          const action  = {type:'FETCH_ALL',payload:data}
          dispatch(action);
+         dispatch({type: 'END_LOADING'});
+    } catch (error) {
+        console.error(error);
+        console.error(error.message)
+    }
+    
+  
+}
+export const getPost=(id)=> async(dispatch)=>{
+    try {
+        dispatch({type: 'START_LOADING'});
+        console.log('this also works...');
+         const {data:{data}}=  await api.fetchPost(id);
+         console.log(data);
+         const action  = {type:'FETCH_POST',payload:data}
+         dispatch(action);
+         dispatch({type: 'END_LOADING'});
     } catch (error) {
         console.error(error);
         console.error(error.message)
@@ -18,10 +36,12 @@ export const getPosts=()=> async(dispatch)=>{
 export const getPostBySearch = (searchQuery)=> async(dispatch)=> {
 
     try {
+        dispatch({type:'START_LOADING'});
         const {data:{data}} = await api.fetchPostBySearch(searchQuery);
         const action = {type:'FETCH_BY_SEARCH', payload:data};
         dispatch(action);
         console.log(data);
+        dispatch({type: 'END_LOADING'});
     } catch (error) {
         console.error(error);
     }

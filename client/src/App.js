@@ -10,7 +10,7 @@ import PostDetails from "./components/PostDetails/PostDetails.js";
 /* *******************************************
         starting :- DATE: 01/05/2023
         BREAK :- DAY 7 to DAY 20 TILL :- 20/05/2023  
-        CURRENT:- DAY 22 DATE:22/05/2023
+        CURRENT:- DAY 23 DATE:23/05/2023
 ********************************************** */
 
 

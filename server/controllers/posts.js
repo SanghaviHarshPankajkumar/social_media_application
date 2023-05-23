@@ -4,9 +4,13 @@ import PostMessage from "../models/postMessage.js";
 export  const getPosts= async (req,res)=>{
     try {
         // res.send('This Works');
-        const postMessages  = await PostMessage.find({})
+        const {page} = req.query;
+        const LIMIT  = 3;
+        const total = await PostMessage.countDocuments({});
+        const startIndex = Number(page-1)*LIMIT;
+        const postMessages  = await PostMessage.find().sort({_id:-1}).limit(LIMIT).skip(startIndex)
         // console.log(postMessages);
-        res.status(200).json(postMessages);
+        res.status(200).json({data : postMessages, numberOfPage: Math.ceil(total/LIMIT), currentPage:Number(page)});
     } catch (error) {
         res.status(404).json({message:error.message})
         console.log(error);
@@ -28,6 +32,16 @@ export const getPostsBySearch = async(req,res)=>{
     }
 }
 
+export const getPost = async(req,res) => {
+    try {
+        const {id} = req.params;
+        const post = await PostMessage.find({id});
+        res.json({data:post});
+    } catch (error) {
+        console.log(error);
+        res.status(404).json*=({message:error.message})
+    }
+}
 export const createPost = async(req,res)=>{
     const post = req.body;
     
