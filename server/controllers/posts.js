@@ -5,7 +5,7 @@ export  const getPosts= async (req,res)=>{
     try {
         // res.send('This Works');
         const {page} = req.query;
-        const LIMIT  = 3;
+        const LIMIT  = 6;
         const total = await PostMessage.countDocuments({});
         const startIndex = Number(page-1)*LIMIT;
         const postMessages  = await PostMessage.find().sort({_id:-1}).limit(LIMIT).skip(startIndex)
@@ -34,8 +34,10 @@ export const getPostsBySearch = async(req,res)=>{
 
 export const getPost = async(req,res) => {
     try {
+        console.log('inside the getPost');
         const {id} = req.params;
-        const post = await PostMessage.find({id});
+        const post = await PostMessage.findById(id);
+        console.log(post);
         res.json({data:post});
     } catch (error) {
         console.log(error);
@@ -45,7 +47,7 @@ export const getPost = async(req,res) => {
 export const createPost = async(req,res)=>{
     const post = req.body;
     
-    const newPost = new PostMessage({ ...post, Creator: req.userId, createdAt: new Date().toISOString() })
+    const newPost = new PostMessage({ ...post,tags:post.tags.split(','), Creator: req.userId, createdAt: new Date().toISOString() })
     try {
         await newPost.save();
         res.status(201).json(newPost);

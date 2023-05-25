@@ -10,7 +10,7 @@ import PostDetails from "./components/PostDetails/PostDetails.js";
 /* *******************************************
         starting :- DATE: 01/05/2023
         BREAK :- DAY 7 to DAY 20 TILL :- 20/05/2023  
-        CURRENT:- DAY 23 DATE:23/05/2023
+        CURRENT:- DAY 25 DATE:25/05/2023
 ********************************************** */
 
 
@@ -31,7 +31,7 @@ function App() {
        <Route exact path="/posts" component={Home}/>
         <Route exact path="/posts/search" component={Home}/>
         <Route exact path="/posts/:id" component={PostDetails}/>
-        <Route path="/login" component={()=> (!user ? <Redirect to="/posts"/> : <Login/>)}/>
+        <Route path="/Login" component={()=> (user ? <Redirect to="/posts"/> : <Login/>)}/>
       </Switch>
         </Container>
         </BrowserRouter>

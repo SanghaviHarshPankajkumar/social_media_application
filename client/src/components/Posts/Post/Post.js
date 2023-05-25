@@ -36,7 +36,6 @@ const Post = ({ post, id, setId }) => {
    }
     return (
         <Card className={classes.card} raised elevation={5}>
-  <CardActionArea onClick={openPost}>
                     <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
                 <div className={classes.overlay}>
                     <Typography variant='h6'>{post.name}</Typography>
@@ -44,7 +43,7 @@ const Post = ({ post, id, setId }) => {
                 </div>
                 {
                     (user?.result?._id === post?.Creator) && (
-
+                        
                         <div className={classes.overlay2}>
                             <Button style={{ color: 'white' }} size='small' onClick={() => { setId(post._id); }}>
                                 <EditIcon fontSize='medium'></EditIcon>
@@ -52,8 +51,9 @@ const Post = ({ post, id, setId }) => {
                         </div>
                     )
                 }
+                            <CardActionArea onClick={openPost}>
                 <div className={classes.details}>
-                    <Typography variant='body2' color='textSecondary'>{post.tags}</Typography>
+                    <Typography variant='body2' color='textSecondary'>{post.tags.map((tag)=> (`#${tag}`))}</Typography>
                 </div>
                 <Typography variant='h5' className={classes.title} gutterBottom>{post.title}</Typography>
                 <CardContent>
@@ -72,7 +72,7 @@ const Post = ({ post, id, setId }) => {
                     ) : (
                         <>
                             <Button color='primary' size='small' disabled>
-                                <ThumbUpAltIcon fontSize="small" /> {post.likes.length} Likes
+                                <ThumbUpAltIcon fontSize="small" /> {post?.likes?.length} Likes
                             </Button>
                         </>
                     )
