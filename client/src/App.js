@@ -7,12 +7,6 @@ import { BrowserRouter,Redirect,Route,Switch } from "react-router-dom";
 import Login from "./components/Login/Login.js";
 import PostDetails from "./components/PostDetails/PostDetails.js";
 
-/* *******************************************
-        starting :- DATE: 01/05/2023
-        BREAK :- DAY 7 to DAY 20 TILL :- 20/05/2023  
-        CURRENT:- DAY 25 DATE:25/05/2023
-********************************************** */
-
 
 function App() {
  
