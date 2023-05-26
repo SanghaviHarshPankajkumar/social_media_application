@@ -5,6 +5,7 @@ import moment from 'moment';
 import { CircularProgress, Divider, Paper, Typography } from '@material-ui/core';
 import { useEffect } from 'react';
 import {getPost, getPostBySearch} from '../../actions/posts'
+import Comments from './Comments/Comments';
 const PostDetails = ()=>{
 
     const {post,posts,isLoading} = useSelector((state)=> state.posts);
@@ -12,19 +13,18 @@ const PostDetails = ()=>{
     const dispatch = useDispatch();
     const classes = useStyles();
     const {id} = useParams();
-    let isRecomanding = true;
     useEffect(()=>{
         if(post)
-       { dispatch(getPostBySearch({search:'none', tags: post.tags.join(',')}))
-        isRecomanding = false;}
-    },[dispatch, post]);
+       { 
+        dispatch(getPostBySearch({search:'none', tags: post.tags.join(',')}))
+       }
+    },[post]);
 
     useEffect(()=>{
        dispatch(getPost(id));
-     
-    },[dispatch, id]);
+    },[id]);
     if(!post) return null;
-    if(isLoading && isRecomanding) {
+    if(isLoading ) {
         return(
             <Paper elevation={6} className={classes.loadingPaper}>
                 <CircularProgress size="10em"/>
@@ -51,13 +51,17 @@ const PostDetails = ()=>{
                     <img className={classes.media} src={post.selectedFile|| 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title}/>
                 </div>
             </div>
+            <Divider style={{margin:'20px'}}/>
+            <div className={classes.section}>
+                <Comments post={post}/>
+            </div>
             {recomendedPost.length>0 && 
             <div className={classes.section} >
                 <Typography gutterBottom variant='h5'>You may also like these</Typography>
                 <Divider/>
                 <div className={classes.recommendedPosts}>
                     {recomendedPost.map(({title, name, message,selectedFile,_id,likes}) => (
-                        <div style={{margin:'20px', cursor:'pointer'} } onClick={()=> openPost(_id)}>
+                        <div style={{margin:'20px', cursor:'pointer'} } className={classes.section} onClick={()=> openPost(_id)}>
                             <Typography variant='h6' gutterBottom> {title} </Typography>
                             <Typography variant='subtitle2' gutterBottom>{name}</Typography>
                             <Typography variant='subtitle2' gutterBottom>{message}</Typography>

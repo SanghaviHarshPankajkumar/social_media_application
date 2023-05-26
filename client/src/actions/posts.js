@@ -18,13 +18,13 @@ export const getPosts=(page)=> async(dispatch)=>{
 }
 export const getPost=(id)=> async(dispatch)=>{
     try {
-        dispatch({type: 'START_LOADING'});
+        
         console.log('this also works...');
          const {data:{data}}=  await api.fetchPost(id);
          console.log(data);
          const action  = {type:'FETCH_POST',payload:data}
          dispatch(action);
-         dispatch({type: 'END_LOADING'});
+      
     } catch (error) {
         console.error(error);
         console.error(error.message)
@@ -87,4 +87,18 @@ export const updateLikePost = (id)=>async(dispatch)=>{
     } catch (error) {
         console.error(error);
     }
+
+}
+
+export const createComment = (id,comment)=> async(dispatch)=>{
+    try {
+        const {data}  = await api.createComment(id,comment);
+        const action = {type:'CREATE_COMMENT',payload: data};
+        dispatch(action);
+        return data.comments;
+        
+    } catch (error) {
+        
+    }
+    
 }

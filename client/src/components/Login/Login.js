@@ -96,17 +96,6 @@ const Login= ()=>{
             <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
                 {isSignUp? 'SignUP': 'SignIn'}
             </Button>
-            {/* <GoogleLogin 
-            clientId='736488580378-pho2d2n0tvkdb4can6ppi5oqhsa8ess3.apps.googleusercontent.com'
-            render={(renderProps)=>(
-                <Button className={classes.googleButton} color='primary' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon/>} variant='contained'>
-                    Google Sign IN
-                </Button>
-            )}
-              onSuccess={googleSuccess}
-              onFailure={googleFalier}
-              cookiePolicy='single_host_origin'
-            /> */}
                         <GoogleLogin onSuccess={googleSuccess} onError={googleFalier} />
             <Grid container justifyContent='flex-end'>
                 <Grid item>

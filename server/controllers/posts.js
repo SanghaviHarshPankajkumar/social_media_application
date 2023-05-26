@@ -119,4 +119,23 @@ export const updateLikePost = async(req,res)=>{
      } catch (error) {
         res.send(501).json({message:error.message})
      }
+
+
 }
+
+export const updateComments = async (req,res)=>{
+try {
+    const id = req.params.id;
+    const {comment} = req.body;
+    console.log('inside the comments');
+    const post = await PostMessage.findById(id);
+    post.comments.push(comment);
+    const updatedPost=  await PostMessage.findByIdAndUpdate(id,post,{new:true} );
+    console.log('in controller');
+     res.json(updatedPost);
+} catch (error) {
+    console.log(error);
+    res.send(400).json({message:error.message})
+}
+}
+

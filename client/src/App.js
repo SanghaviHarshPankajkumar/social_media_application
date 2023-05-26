@@ -31,7 +31,7 @@ function App() {
        <Route exact path="/posts" component={Home}/>
         <Route exact path="/posts/search" component={Home}/>
         <Route exact path="/posts/:id" component={PostDetails}/>
-        <Route path="/Login" component={()=> (user ? <Redirect to="/posts"/> : <Login/>)}/>
+        <Route path="/Login" component={Login}/>
       </Switch>
         </Container>
         </BrowserRouter>

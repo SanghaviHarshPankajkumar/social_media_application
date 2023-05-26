@@ -33,6 +33,9 @@ export default (state={posts:[], isLoading:true},action)=>{
 
         case 'DELETE_POST':
             return {...state, posts: state.posts.filter((post) => post._id !== action.payload)};
+
+        case 'CREATE_COMMENT':
+            return {...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))};
             
         default:
             return state ;
