@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API1 = axios.create({baseURL:'http://localhost:5000/'});
+const API1 = axios.create({baseURL:'https://social-media-app-server-8z4v.onrender.com'});
 
 API1.interceptors.request.use((req)=>{
     if(localStorage.getItem('profile')){
